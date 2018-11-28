@@ -5,6 +5,7 @@ public class MainClass {
         List<User> users = Arrays.asList(
                 new User("John", 28),
                 new User("Jane", 35),
+                new User("Ann", 35),
                 new User("Alex", 21));
 
         printUsers("Before sort:\n",users);
@@ -34,16 +35,23 @@ public class MainClass {
         users.sort(comparator);
         printUsers("After sort by NAME:\n", users);
 
-
-
-
+        //сортировка с несколькими условиями
+        users.sort((o1, o2) -> {
+            if (o1.getAge()==o2.getAge()){
+                return o1.getName().compareTo(o2.getName());
+            }else{
+                return o1.getAge()-o2.getAge();
+            }
+        });
+        printUsers("After sort with a few conditions:\n", users);
 
     }
 
     private static void printUsers(String message, List<User> users){
-        if (!message.equals("")){
-            System.out.print(message);
-        }
+        if (message!=null)
+            if (!message.equals("")){
+                System.out.print(message);
+            }
         for (User user: users){
             System.out.println(user);
         }
