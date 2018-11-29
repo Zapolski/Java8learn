@@ -2,10 +2,19 @@ import java.util.*;
 
 public class MainClass {
     public static void main(String[] args) {
+
+        UserFactory userFactory = User::new;
+
+
+
+
+
+
         List<User> users = Arrays.asList(
                 new User("John", 28),
                 new User("Jane", 35),
-                new User("Ann", 35),
+                new User("Anna", 35),
+                userFactory.create("Andy",44),
                 new User("Alex", 21));
 
         printUsers("Before sort:\n",users);
@@ -45,16 +54,34 @@ public class MainClass {
         });
         printUsers("After sort with a few conditions:\n", users);
 
+
+        //сортировка со ссылками на методы
+        System.out.println();
+        users.sort(Comparator.comparing(User::getName));
+        users.forEach(System.out::println);
+
     }
 
     private static void printUsers(String message, List<User> users){
-        if (message!=null)
+        if (message!=null){
             if (!message.equals("")){
                 System.out.print(message);
             }
-        for (User user: users){
-            System.out.println(user);
         }
+        //лямбда для форыча
+        //users.forEach(user -> System.out.println(user));
+
+        //foreach с условием
+        /*users.forEach(user -> {
+            if (user.getAge()<30) System.out.println(user);
+        });*/
+
+        //лямбда со ссылкой на метод
+        users.forEach(System.out::println);
+
+        /*for (User user: users){
+            System.out.println(user);
+        }*/
     }
 
 
